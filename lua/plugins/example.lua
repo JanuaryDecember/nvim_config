@@ -21,23 +21,39 @@ return {
   {
     "stevearc/conform.nvim",
     opts = {
-      format_on_save = function(bufnr)
-        return {
-          timeout_ms = 500,
-          lsp_fallback = false,
-        }
-      end,
       formatters_by_ft = {
-        javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { "prettierd" },
+        typescript = { "prettierd" },
+        typescriptreact = { "prettierd" },
         cs = { "csharpier" },
+        sql = { "pgformatter" },
+        json = { "prettierd" },
+        html = { "prettierd" },
+        css = { "prettierd" },
       },
       formatters = {
+        prettierd = {
+          require_cwd = true,
+        },
         csharpier = {
           command = vim.fn.stdpath("data") .. "/mason/bin/csharpier",
           args = { "format", "$FILENAME" },
           stdin = false,
           require_cwd = false,
         },
+      },
+    },
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "tsx",
+        "typescript",
+        "javascript",
+        "html",
+        "css",
+        "json",
       },
     },
   },
